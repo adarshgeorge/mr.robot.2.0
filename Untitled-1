@@ -1,0 +1,4 @@
+!#/usr/local/bin/python3
+
+from ec.py import telegram_bot_sendtext
+

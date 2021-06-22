@@ -5,7 +5,7 @@ from datetime import datetime
 district = "307"
 today = datetime.today()
 #date = today.strftime("%d-%m-%Y")
-date = "12-06-2021"
+date = "23-06-2021"
 #By pincode
 #url = f"https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode={pin_code}&date={date}"
 url = f"https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id={district}&date={date}"

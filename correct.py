@@ -1,21 +1,18 @@
 import requests 
 import time 
 import twilio
-from telegram import Update
-from telegram.ext import Updater, CommandHandler, CallbackContext
-
 from twilio.rest import Client
 from decouple import config
 from datetime import datetime 
-
-
-#Function Obtain Slots Of EKM District
-
+account_sid = config('TWILIO_ACCOUNT_SID')
+auth_token = config('TWILIO_AUTH_TOKEN')
+client = Client(account_sid, auth_token)
 def dist(district_id): 
 
     district = district_id 
     today = datetime.today() 
-    date = today.strftime("%d-%m-%Y") 
+    date = today.strftime("%d-%m-%Y")
+    print(date) 
     slots = {} 
     url = f"https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id={district}&date={date}" 
 
@@ -26,22 +23,12 @@ def dist(district_id):
             slots[center['name']] = [ {'dose1' : center['available_capacity_dose1']},  {'Age limit': center['min_age_limit']} ] 
     return(slots) 
      
-slots = dist(307)
-print(slots)
+message = client.messages \
+    .create(
+         body='Hi Groot!\n {}'.format(dist(571)),
+         from_='whatsapp:+14155238886',
+         to='whatsapp:+919633131216'
+     )
 
-
-def telegram_bot_sendtext(bot_message):
-
-   bot_token = config('TELE_TOKEN')
-   bot_chatID = config('CHAT_ID')
-   send_text = 'https://api.telegram.org/bot' + bot_token + '/sendMessage?chat_id=' + bot_chatID + '&parse_mode=Markdown&text=' + bot_message
-
-   response = requests.get(send_text)
-
-   return response.json()
-
-
-test = telegram_bot_sendtext(str(slots))
-print(test)
-
-    
+print(message.sid)  
+print(dist(571)) 

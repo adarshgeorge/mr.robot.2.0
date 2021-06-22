@@ -1,17 +1,19 @@
 import requests
 import time
-from datetime import datetime
+import datetime
+
+
+def tom(): 
+    base = datetime.datetime.today() 
+    
+    for x in range(0,2):  
+        xday = base + datetime.timedelta(days=x)  
+        #print(xday.strftime('%d-%m-%Y'))
+    tomw = print(xday.strftime('%d-%m-%Y'))
 
 district = "307"
-today = datetime.today()
-#date = today.strftime("%d-%m-%Y")
-
-
-
-date = "19-06-2021"
-
-
-
+date = tom()
+print(date)
 
 url = f"https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id={district}&date={date}"
 
@@ -20,7 +22,7 @@ for center in data['sessions']:
     #print(center['name'], center['min_age_limit'], center['slots'], center['available_capacity'], center['available_capacity_dose1'])
     #time.sleep(2)
     if center[ 'min_age_limit' ] == 18 and center[ 'available_capacity_dose1' ] > 0 :
-        print( center['vaccine'] ,'Dose1:' , center['available_capacity_dose1'], 'Dose2:' , center['available_capacity_dose2'],center['name'], 'Age limit:', center['min_age_limit'])
+        print( center['vaccine'] ,'Dose1:' , center['available_capacity_dose1'], center['name'], 'Age limit:', center['min_age_limit'])
          
-time.sleep(10)       
+time.sleep(2)       
         
